@@ -102,6 +102,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.add_function()
+        self.is_equal = False
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Calculator"))
@@ -118,13 +121,45 @@ class Ui_MainWindow(object):
         self.Button_8.setText(_translate("MainWindow", "8"))
         self.Button_9.setText(_translate("MainWindow", "9"))
         self.Button_divide.setText(_translate("MainWindow", "/"))
-        self.Button_multiple.setText(_translate("MainWindow", "x"))
+        self.Button_multiple.setText(_translate("MainWindow", "*"))
         self.Button_subtract.setText(_translate("MainWindow", "-"))
         self.Button_add.setText(_translate("MainWindow", "+"))
         self.Button_percent.setText(_translate("MainWindow", "%"))
         self.Button_clear_all.setText(_translate("MainWindow", "C"))
         self.Button_clear_one_value.setText(_translate("MainWindow", "<x"))
 
+        # ======= function methods ======================
+    def add_function(self):
+        self.Button_0.clicked.connect(lambda: self.write_number(self.Button_0.text()))
+        self.Button_1.clicked.connect(lambda: self.write_number(self.Button_1.text()))
+        self.Button_2.clicked.connect(lambda: self.write_number(self.Button_2.text()))
+        self.Button_3.clicked.connect(lambda: self.write_number(self.Button_3.text()))
+        self.Button_4.clicked.connect(lambda: self.write_number(self.Button_4.text()))
+        self.Button_5.clicked.connect(lambda: self.write_number(self.Button_5.text()))
+        self.Button_6.clicked.connect(lambda: self.write_number(self.Button_6.text()))
+        self.Button_7.clicked.connect(lambda: self.write_number(self.Button_7.text()))
+        self.Button_8.clicked.connect(lambda: self.write_number(self.Button_8.text()))
+        self.Button_9.clicked.connect(lambda: self.write_number(self.Button_9.text()))
+        self.Button_add.clicked.connect(lambda: self.write_number(self.Button_add.text()))
+        self.Button_subtract.clicked.connect(lambda: self.write_number(self.Button_subtract.text()))
+        self.Button_divide.clicked.connect(lambda: self.write_number(self.Button_divide.text()))
+        self.Button_multiple.clicked.connect(lambda: self.write_number(self.Button_multiple.text()))
+
+        self.Button_Equal.clicked.connect(self.results)
+
+    # def write_number(self, number):
+    #     print(number)
+    def write_number(self, number):
+        if self.label_result.text() == '0' or self.is_equal:
+            self.label_result.setText(number)
+            self.is_equal = False
+        else:
+            self.label_result.setText(self.label_result.text() + number)
+
+    def results(self):
+        res = eval(self.label_result.text())
+        self.label_result.setText(f"RESULT: {res}")
+        self.is_equal = True
 
 if __name__ == "__main__":
     import sys
