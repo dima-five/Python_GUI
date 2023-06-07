@@ -48,5 +48,5 @@ def application():
         window.show()  # Window is displayed on screen
         sys.exit(app.exec_())  # Code is finished correctly after running
 
-if __name__ == "__main__":  # If run cuurent file 'main.py'
+if __name__ == "__main__":  # If run current file 'main.py'
     application()
