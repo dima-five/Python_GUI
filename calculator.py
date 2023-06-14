@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
 
 class Ui_MainWindow(object):
@@ -157,9 +158,20 @@ class Ui_MainWindow(object):
             self.label_result.setText(self.label_result.text() + number)
 
     def results(self):
-        res = eval(self.label_result.text())
-        self.label_result.setText(f"RESULT: {res}")
-        self.is_equal = True
+        if not self.is_equal:
+            res = eval(self.label_result.text())
+            self.label_result.setText(f"RESULT: {res}")
+            self.is_equal = True
+        else:
+            warning_win = QMessageBox()
+            warning_win.setWindowTitle("Warning Window")
+            warning_win.setText("'Equal' button is not clicked")
+            warning_win.setIcon(QMessageBox.Warning)
+            warning_win.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            warning_win.setDefaultButton(QMessageBox.Ok)
+
+            warning_win.exec_()
 
 if __name__ == "__main__":
     import sys
